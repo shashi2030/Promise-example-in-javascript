@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+<body>
+<div id="data" style="width:50%;height:500px;overflow:auto;border:solid 1px #ddd">
+
+</div>
+<button onClick="test()">Click Here</button>
+<script>
+var wrapper = document.getElementById('data');
+function test(){
+	var firstMethod = function() {
+		var promise = new Promise(function(resolve, reject){
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  document.getElementById("data").innerHTML +=
+				  this.responseText;
+				  resolve({data:'123'});
+				}
+			  };
+			  xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/2", true);
+			  xhttp.send();			
+		});
+		return promise;
+	};
+ 
+ 
+	var secondMethod = function(someStuff) {
+	   var promise = new Promise(function(resolve, reject){	   
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  document.getElementById("data").innerHTML +=
+				  this.responseText;
+				  resolve({newData: someStuff.data + ' some more data'});
+				}else{
+					reject({newData: ' some more data****************'});
+				}
+			  };
+			  xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/3aaa", true);
+			  xhttp.send();			
+	   });
+	   return promise;
+	};
+ 
+	var thirdMethod = function(someStuff) {
+	   var promise = new Promise(function(resolve, reject){
+	   
+		var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+				  document.getElementById("data").innerHTML +=
+				  this.responseText;
+				  resolve({newData: someStuff.data + ' some more data'});
+				}else{
+					reject({newData: ' some more data****************'});
+				}
+			  };
+			  xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos/4", true);
+			  xhttp.send();		
+			  
+		 
+	   });
+	   return promise;
+	};
+ 
+	firstMethod().then(secondMethod).then(thirdMethod).catch(function(dd){console.log(dd)});
+  
+}
+</script>
+</body>
+</html>
